@@ -45,12 +45,19 @@ const Home = () => {
       setTitle("")
     }
 
-    const handleToggle = (id, title) => {
+    const handleToggle = (id, title, status) => {
+        let mod;
+        if(status === false) {
+            mod = true
+        }
+        else{
+            mod = false
+        }
 
         const fix = {
             title: title,
             id: id,
-            status: true
+            status: mod
         }
 
         fetch(`http://localhost:3000/myData/${id}`, {
@@ -76,7 +83,7 @@ const Home = () => {
          {
             todos.map((item) => (
                 <div key={item.id}>
-                     {item.title} - {item.status ? "Completed" : "Not Completed"} <button onClick={() => handleToggle(item.id, item.title)}>Toggle</button> - {<Link to={`/todos/${item.id}`}>More Dtaials</Link>}
+                     {item.title} - {item.status ? "Completed" : "Not Completed"} <button onClick={() => handleToggle(item.id, item.title, item.status)}>Toggle</button> - {<Link to={`/todos/${item.id}`}>More Dtaials</Link>}
                      <button onClick={() => handleDelete(item.id)}>Delete</button>
                  </div>
             ))
